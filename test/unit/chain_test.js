@@ -31,8 +31,40 @@ exports.testResults = function(assert) {
 	});
 };
 
+exports.testNullResultsAreNotDiscarded = function(assert) {
+	assert.expect(1);
+	
+	// order the results by setting a timeout. this "proves" concurrency.
+	var functions = [
+		function(done) {  done('red'); },
+		function(done) {  done(null); },
+		function(done) {  done('blue'); }
+	];
+	
+	gang.group(functions, function(colors) {
+		assert.same(['red', null, 'blue'], colors);
+		assert.done();
+	});
+};
+
+exports.testUndefinedResultsNotDiscarded = function(assert) {
+	assert.expect(1);
+	
+	// order the results by setting a timeout. this "proves" concurrency.
+	var functions = [
+		function(done) { done('red'); },
+		function(done) { done(); },
+		function(done) { done('blue'); },
+	];
+	
+	gang.group(functions, function(colors) {
+		assert.same(['red', undefined, 'blue'], colors);
+		assert.done();
+	});
+};
+
 exports.testStopsOnError = function(assert) {
-	assert.expect(4);
+	assert.expect(2);
 	
 	var functions = [
 		function(done) { done('red'); },
@@ -41,10 +73,8 @@ exports.testStopsOnError = function(assert) {
 	];
 	
 	gang.chain(functions, function(colors) {
-		assert.equals(2, colors.length);
-		assert.equals('red', colors[0]);
-		assert.ok(colors[1] instanceof Error);
-		assert.equals('green', colors[1].message);
+		assert.ok(colors instanceof Error);
+		assert.equals('green', colors.message);
 		assert.done();
 	});
 };
