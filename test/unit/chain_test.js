@@ -78,3 +78,19 @@ exports.testStopsOnError = function(assert) {
 		assert.done();
 	});
 };
+
+exports.testResultsAvailableOnError = function(assert) {
+	assert.expect(2);
+	
+	var functions = [
+		function(done) { done('red'); },
+		function(done) { done(new Error('green')); },
+		function(done) { done('blue'); } 
+	];
+	
+	gang.chain(functions, function(err, colors) {
+		assert.ok(err instanceof Error);
+		assert.same(['red'], colors);
+		assert.done();
+	});
+};

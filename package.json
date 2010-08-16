@@ -1,6 +1,6 @@
 { "name" : "gang-bang"
 , "description" : "An execution flow-control utility."
-, "version" : "0.1.1"
+, "version" : "0.1.3"
 , "homepage" : "http://github.com/alexkwolfe/gang-bang"
 , "author" : "Alex Wolfe <alexkwolfe@gmail.com>"
 , "contributors" : []
