@@ -1,24 +1,23 @@
-{ "name" : "gang-bang"
-, "description" : "An execution flow-control utility."
-, "version" : "0.1.3"
-, "homepage" : "http://github.com/alexkwolfe/gang-bang"
+{ "name" : "groupie"
+, "description" : "A simple flow control library for node.js for executing multiple functions as a group or in a chain, calling back when all functions have finished."
+, "version" : "0.1.0"
+, "homepage" : "http://github.com/alexkwolfe/groupie"
 , "author" : "Alex Wolfe <alexkwolfe@gmail.com>"
 , "contributors" : []
 , "repository" :
   { "type" : "git"
-  , "url" : "http://github.com/alexkwolfe/gang-bang.git"
+  , "url" : "http://github.com/alexkwolfe/groupie.git"
   }
 , "bugs" :
   { "mail" : "alexkwolfe@gmail.com"
-  , "web" : "http://github.com/alexkwolfe/gang-bang/issues"
+  , "web" : "http://github.com/alexkwolfe/groupie/issues"
   }
-, "directories" : { "lib" : "./lib" }
-, "main" : "./lib/gang-bang"
+, "main" : "./lib/groupie"
 , "engines" : { "node" : ">=0.1.101" }
 , "dependencies" : { }
 , "licenses" :
   [ { "type" : "MIT"
-    , "url" : "http://github.com/alexkwolfe/gang-bang/raw/master/LICENSE"
+    , "url" : "http://github.com/alexkwolfe/groupie/raw/master/LICENSE"
     }
   ]
 }

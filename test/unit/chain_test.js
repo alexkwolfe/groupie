@@ -1,4 +1,4 @@
-var gang = require('../../lib/gang-bang');
+var groupie = require('../../lib/groupie');
 
 exports.testAllFunctionsCalled = function(assert) {
 	assert.expect(1);
@@ -10,7 +10,7 @@ exports.testAllFunctionsCalled = function(assert) {
 		function(done) { calls++; done(); } 
 	];
 	
-	gang.chain(functions, function(colors) {
+	groupie.chain(functions, function(colors) {
 		assert.equals(3, calls);
 		assert.done();
 	});
@@ -20,12 +20,12 @@ exports.testResults = function(assert) {
 	assert.expect(1);
 	
 	var functions = [
-		function(done) { done('red'); },
-		function(done) { done('green'); },
-		function(done) { done('blue'); } 
+		function(done) { done(null, 'red'); },
+		function(done) { done(null, 'green'); },
+		function(done) { done(null, 'blue'); } 
 	];
 	
-	gang.chain(functions, function(colors) {
+	groupie.chain(functions, function(err, colors) {
 		assert.same(['red', 'green', 'blue'], colors);
 		assert.done();
 	});
@@ -36,12 +36,12 @@ exports.testNullResultsAreNotDiscarded = function(assert) {
 	
 	// order the results by setting a timeout. this "proves" concurrency.
 	var functions = [
-		function(done) {  done('red'); },
-		function(done) {  done(null); },
-		function(done) {  done('blue'); }
+		function(done) {  done(null, 'red'); },
+		function(done) {  done(null, null); },
+		function(done) {  done(null, 'blue'); }
 	];
 	
-	gang.group(functions, function(colors) {
+	groupie.group(functions, function(err, colors) {
 		assert.same(['red', null, 'blue'], colors);
 		assert.done();
 	});
@@ -52,12 +52,12 @@ exports.testUndefinedResultsNotDiscarded = function(assert) {
 	
 	// order the results by setting a timeout. this "proves" concurrency.
 	var functions = [
-		function(done) { done('red'); },
+		function(done) { done(null, 'red'); },
 		function(done) { done(); },
-		function(done) { done('blue'); },
+		function(done) { done(null, 'blue'); },
 	];
 	
-	gang.group(functions, function(colors) {
+	groupie.group(functions, function(err, colors) {
 		assert.same(['red', undefined, 'blue'], colors);
 		assert.done();
 	});
@@ -67,14 +67,14 @@ exports.testStopsOnError = function(assert) {
 	assert.expect(2);
 	
 	var functions = [
-		function(done) { done('red'); },
-		function(done) { done(new Error('green')); },
-		function(done) { done('blue'); } 
+		function(done) { done(null, 'red'); },
+		function(done) { done(new Error('green'), 'orange'); },
+		function(done) { done(null, 'blue'); } 
 	];
 	
-	gang.chain(functions, function(colors) {
-		assert.ok(colors instanceof Error);
-		assert.equals('green', colors.message);
+	groupie.chain(functions, function(err, colors) {
+		assert.ok(err);
+		assert.equals('green', err.message);
 		assert.done();
 	});
 };
@@ -83,13 +83,13 @@ exports.testResultsAvailableOnError = function(assert) {
 	assert.expect(2);
 	
 	var functions = [
-		function(done) { done('red'); },
-		function(done) { done(new Error('green')); },
-		function(done) { done('blue'); } 
+		function(done) { done(null, 'red'); },
+		function(done) { done(new Error('green'), 'orange'); },
+		function(done) { done(null, 'blue'); } 
 	];
 	
-	gang.chain(functions, function(err, colors) {
-		assert.ok(err instanceof Error);
+	groupie.chain(functions, function(err, colors) {
+		assert.ok(err);
 		assert.same(['red'], colors);
 		assert.done();
 	});
