@@ -1,6 +1,6 @@
 { "name" : "groupie"
 , "description" : "A simple flow control library for node.js for executing multiple functions as a group or in a chain, calling back when all functions have finished."
-, "version" : "0.1.0"
+, "version" : "0.1.1"
 , "homepage" : "http://github.com/alexkwolfe/groupie"
 , "author" : "Alex Wolfe <alexkwolfe@gmail.com>"
 , "contributors" : []

@@ -56,8 +56,8 @@ use the function callback as the Node callback. The above example could be rewri
 
 ### Your function results
 
-The results of your function calls is available in second parameter of the group or chain 
-callback. The results is an array of the values submitted by your functions in the `done` 
+The results of your function calls are available in second parameter of the group or chain 
+callback. The results array of the values submitted by your functions in the `done` 
 callback, in the same order that the functions are declared.
 
 If the `done` method is called with a `null` parameter or no parameter, then `null` or

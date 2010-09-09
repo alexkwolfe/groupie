@@ -35,6 +35,14 @@ exports.testResults = function(assert) {
 	});
 };
 
+exports.testNoFunctions = function(assert) {
+    groupie.group([], function(err, colors) {
+        assert.ok(!err);
+        assert.same([], colors);
+        assert.done();
+    });
+};
+
 exports.testNullResultsAreNotDiscarded = function(assert) {
 	assert.expect(1);
 
