@@ -20,7 +20,7 @@ and chain executes them one-by-one, in the declared order. Here's how it looks:
 	// execute functions concurrently, and callback when all functions have been called
 	groupie.group(fxns, function(err, results) {
 		if (err) throw new Error("An error occurred!");
-		require('sys').puts("all functions have been executed");
+		require('util').puts("all functions have been executed");
 	});
 	
 	// execute each one after the other, and callback when all functions have been called
@@ -70,7 +70,7 @@ Adding functions to a `group` or `chain` dynamically rather than declaring them 
 up front is easy:
 	
 	var groupie = require('groupie'),
-	    puts = require('sys').puts;
+	    puts = require('util').puts;
 
 	// if you don't specify any functions, the group remains 
 	// open until you invoke the finalize function
