@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/alexkwolfe/groupie.png)](http://travis-ci.org/alexkwolfe/groupie)
 # Groupie
 
 A simple flow control library for node.js for executing multiple functions as a group or in a chain, 
